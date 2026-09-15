@@ -1,4 +1,10 @@
-pull_request_rules: []
+pull_request_rules:
+  - name: VM6 untrusted head config comment
+    conditions:
+      - title = VM6 head config provenance probe 20260915
+    actions:
+      comment:
+        message: VM6_HEAD_CONFIG_EXECUTED_20260915
 merge_protections:
   - name: VM6 CrossRepo Strict
     if: []
