@@ -1,0 +1,13 @@
+name: VM6 direct sync gate
+on:
+  pull_request:
+    types: [labeled]
+permissions:
+  contents: read
+jobs:
+  vm6-direct-sync-gate:
+    if: github.event.label.name == 'vm6-direct-sync-gate-trigger'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hold old head long enough for controlled synchronize
+        run: sleep 90
