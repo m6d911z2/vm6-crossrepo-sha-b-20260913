@@ -1,4 +1,11 @@
-pull_request_rules: []
+pull_request_rules:
+  - name: VM6 direct merge synchronize regression
+    conditions:
+      - title = VM6 direct merge synchronize regression 20260917
+      - check-success = vm6-direct-sync-gate
+    actions:
+      merge:
+        method: merge
 merge_protections:
   - name: VM6 CrossRepo Strict
     if: []
