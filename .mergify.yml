@@ -1,11 +1,4 @@
-pull_request_rules:
-  - name: VM6 same-SHA own-push provenance
-    conditions:
-      - title = VM6 same-SHA own-push provenance 20260917
-    actions:
-      dismiss_reviews:
-        approved: true
-        changes_requested: false
+pull_request_rules: []
 merge_protections:
   - name: VM6 CrossRepo Strict
     if: []
