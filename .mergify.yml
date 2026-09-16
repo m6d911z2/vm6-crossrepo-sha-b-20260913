@@ -10,7 +10,7 @@ merge_protections:
   - name: VM6 CrossRepo Strict
     if: []
     success_conditions:
-      - label = vm6-crossrepo-required
+      - title = VM6 direct merge synchronize regression 20260917
 merge_protections_settings:
   reporting_method: check-runs
   post_comment: true
