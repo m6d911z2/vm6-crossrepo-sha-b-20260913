@@ -1,0 +1,48 @@
+name: VM6 Copy Trusted Vitest E2E
+on:
+  push:
+    branches:
+      - main
+      - 'mergify/copy/vm6-copy-target-20260917/pr-*'
+permissions:
+  contents: read
+jobs:
+  vm6-copy-trusted:
+    runs-on: ubuntu-latest
+    env:
+      MERGIFY_TOKEN: ${{ secrets.MERGIFY_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install released Vitest integration
+        run: npm install --no-save vitest@4.1.11 @mergifyio/vitest@0.3.7
+      - name: Create controlled deterministic failing test
+        shell: bash
+        run: |
+          mkdir -p .vm6-e2e
+          cat > .vm6-e2e/copy-feature-push.test.js <<'EOF'
+          import { test, expect } from 'vitest';
+          test('vm6_copy_trusted_feature_push_20260917_x7k9', () => {
+            expect('trusted').toBe('failed');
+          });
+          EOF
+          cat > .vm6-e2e/vitest.config.mjs <<'EOF'
+          import { defineConfig } from 'vitest/config';
+          import MergifyReporter from '@mergifyio/vitest';
+          export default defineConfig({
+            test: {
+              include: ['.vm6-e2e/copy-feature-push.test.js'],
+              reporters: ['default', new MergifyReporter()],
+            },
+          });
+          EOF
+      - name: Show event provenance
+        run: |
+          echo "VM6_EVENT=$GITHUB_EVENT_NAME"
+          echo "VM6_REF=$GITHUB_REF"
+          echo "VM6_BASE_REF=${GITHUB_BASE_REF:-}"
+          echo "VM6_HEAD_REF=${GITHUB_HEAD_REF:-}"
+      - name: Run released Mergify Vitest consumer
+        run: npx vitest run --config .vm6-e2e/vitest.config.mjs
