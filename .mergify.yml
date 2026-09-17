@@ -1,11 +1,4 @@
-pull_request_rules:
-  - name: VM6 copy trusted feature-push e2e
-    conditions:
-      - title ~= VM6_COPY_TRUSTED_E2E_20260917
-    actions:
-      copy:
-        branches:
-          - vm6-copy-target-20260917
+pull_request_rules: []
 merge_protections:
   - name: VM6 CrossRepo Strict
     if: []
