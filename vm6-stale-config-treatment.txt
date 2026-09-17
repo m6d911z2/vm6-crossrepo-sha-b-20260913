@@ -1,0 +1,1 @@
+VM6 stale default-config treatment canary
