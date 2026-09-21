@@ -1,4 +1,12 @@
-pull_request_rules: []
+pull_request_rules:
+  - name: VM6 docs label copy inheritance safety probe
+    conditions:
+      - base = main
+      - label = copy-to-prod
+    actions:
+      copy:
+        branches:
+          - prod
 merge_protections:
   - name: VM6 CrossRepo Strict
     if: []
